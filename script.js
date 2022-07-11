@@ -1,9 +1,9 @@
 const cards = document.querySelectorAll('.card');
-let hasFlipCard = false;
+let hasFlippedCard = false;
 let firstCard, secondCard;
 
 function flipCard() {
-  this.classList.toggle('flip');
+  this.classList.add('flip');
   if(!hasFlippedCard) {
     hasFlipCard = true;
     firstCard = this;
@@ -11,7 +11,18 @@ function flipCard() {
   }
 
   secondCard = this;
+  hasFlippedCard = false;
+  checkForMath();
 };
+
+function checkForMath() {
+  if(firstCard.dataset.card === secondCard.dataset.card) {
+    disableCards();
+    return;
+  }
+
+  unflipCard();
+}
 
 cards.forEach((card) => {
   card.addEventListener('click', flipCard);
